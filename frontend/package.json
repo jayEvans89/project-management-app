@@ -1,0 +1,105 @@
+{
+  "version": "0.0.0",
+  "scripts": {
+    "serve": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "lint": "eslint --plugin eslint-plugin-vue frontend/**/*.vue frontend/**/*.ts"
+  },
+  "dependencies": {
+    "@rollup/plugin-eslint": "^8.0.1",
+    "@vue/cli-plugin-unit-jest": "^4.5.13",
+    "@vue/eslint-config-standard": "^6.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "@vue/runtime-core": "^3.1.4",
+    "@vue/test-utils": "^1.2.1",
+    "babel-jest": "^27.0.6",
+    "eslint": "^7.28.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-vue": "^7.11.1",
+    "jest": "^27.0.6",
+    "sass": "^1.35.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-sass-guidelines": "^8.0.0",
+    "stylelint-config-standard": "^22.0.0",
+    "ts-jest": "^27.0.3",
+    "vue": "^3.1.4  ",
+    "vue-router": "^4.0.8",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "@types/node": "^15.12.3",
+    "@vitejs/plugin-vue": "^1.2.3",
+    "@vue/compiler-sfc": "^3.0.5",
+    "axios": "^0.21.1",
+    "typescript": "^4.3.2",
+    "vite": "^2.3.7",
+    "vue-tsc": "^0.0.24"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended",
+      "@vue/typescript/recommended"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2020
+    },
+    "rules": {
+      "space-before-function-paren": "off",
+      "@typescript-eslint/camelcase": "off",
+      "camelcase": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "no-use-before-define": "off"
+    }
+  },
+  "stylelint": {
+    "extends": "stylelint-config-sass-guidelines",
+    "rules": {
+      "max-nesting-depth": null,
+      "selector-class-pattern": null,
+      "order/properties-alphabetical-order": null
+    }
+  },
+  "babel": {
+    "presets": [
+      "@vue/cli-plugin-babel/preset"
+    ],
+    "ignore": [
+      "assets/Javascript/**/*.js"
+    ]
+  },
+  "jest": {
+    "verbose": true,
+    "preset": "@vue/cli-plugin-unit-jest/presets/typescript-and-babel",
+    "globals": {
+      "ts-jest": {
+        "babelConfig": "babel.config.js"
+      }
+    },
+    "moduleNameMapper": {
+      "^@/(.*)": "<rootDir>/$1"
+    },
+    "moduleFileExtensions": [
+      "vue",
+      "ts",
+      "js",
+      "json"
+    ],
+    "transform": {
+      "^.+\\.ts?$": "ts-jest",
+      ".*\\.(vue)$": "vue-jest"
+    },
+    "testMatch": [
+      "<rootDir>/**/*.spec.ts"
+    ],
+    "collectCoverage": true,
+    "coverageDirectory": "<rootDir>/tests/coverage"
+  }
+}

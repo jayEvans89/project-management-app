@@ -1,0 +1,54 @@
+
+.form-group {
+  margin-bottom: 15px;
+
+  &__label {
+    display: block;
+    margin-bottom: 5px;
+    text-transform: capitalize;
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background: transparent;
+    border: 1px solid var(--clr-text-tertiary);
+    transition: 250ms ease-in-out;
+    color: var(--clr-background-600);
+    
+    &::placeholder {
+      color: var(--clr-text-tertiary);
+      opacity: 0.8;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      border-color: var(--clr-background-500);
+      color: var(--clr-background-600);
+      outline: none;
+    }
+
+    &--text-area {
+      min-height: 150px;
+      padding: 8px 10px;
+    }
+
+    &--error {
+      border-color: var(--color-border-error);
+
+      &:hover,
+      &:active,
+      &:focus {
+        border-color: var(--color-border-error);
+      }
+    }
+  }
+
+  &__error {
+    margin-top: 10px;
+    color: var(--color-text-error);
+  }
+}
