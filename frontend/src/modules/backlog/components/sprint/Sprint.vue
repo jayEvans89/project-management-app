@@ -4,7 +4,8 @@
     <div :class="['active-sprint', { 'active-sprint--open': showIssues }]">
       <div>
         <svg
-          :class="['chevron-icon', { 'chevron-icon--active': showIssues }]" @click="toggleSprint"
+          :class="['chevron-icon', { 'chevron-icon--active': showIssues }]"
+          @click="toggleSprint"
           viewBox="0 0 20.73 34.21"
         >
           <path
@@ -18,12 +19,14 @@
         <p class="active-sprint__dates">{{ sprint.startDate }} - {{ sprint.endDate }}</p>
         <p
           class="active-sprint__total-issues"
-          v-show="totalIssues > 0"
+          v-show="totalIssues === 0"
         >Total Issues: {{ totalIssues }}</p>
         <p
           class="active-sprint__total-issues"
-          v-show="totalPoints > 0"
+          v-show="totalPoints === 0"
         >Story Points: {{ totalPoints }}</p>
+        <p class="active-sprint__start" v-show="!sprint.active && !activeSprint" @click="startSprint">Start</p>
+        <p class="active-sprint__start" v-show="sprint.active" @click="endSprint">End</p>
       </div>
       <!-- TODO: Start/Complete button -->
       <!-- TODO: Add menu for delete and edit -->
@@ -40,6 +43,7 @@ import { computed, defineComponent, onMounted, PropType, ref } from '@vue/runtim
 import CreateIssue from '@/modules/backlog/components/shared/AddIssueSprint.vue'
 import Issue from '@/modules/backlog/components/shared/Issue.vue'
 import { Sprint } from '../../../../../../backend/types/sprint/sprint'
+import sprintService from '@/services/sprint/sprintService'
 
 export default defineComponent({
   name: 'sprint-component',
@@ -51,9 +55,16 @@ export default defineComponent({
     sprint: {
       type: Object as PropType<Sprint>,
       required: true
+    },
+    activeSprint: {
+      type: Boolean
     }
   },
-  setup(props) {
+  emits: [
+    'sprint-started',
+    'sprint-ended'
+  ],
+  setup(props, { emit }) {
     const sprintContainer = ref<null | HTMLElement>(null) // eslint-disable-line
     const containerHeight = ref('height: 55px;')
     const showIssues = ref(false)
@@ -84,13 +95,33 @@ export default defineComponent({
       }
     }
 
+    const startSprint = async () => {
+      try {
+        const res = await sprintService.startSprint(props.sprint._id)
+        emit('sprint-started', res.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    const endSprint = async () => {
+      try {
+        const res = await sprintService.endSprint(props.sprint._id)
+        emit('sprint-ended', res.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
     return {
       sprintContainer,
       containerHeight,
       toggleSprint,
       showIssues,
       totalIssues,
-      totalPoints
+      totalPoints,
+      startSprint,
+      endSprint
     }
   }
 })
@@ -148,6 +179,11 @@ export default defineComponent({
 
   &__issues {
     padding: 15px 0 0;
+  }
+
+  &__start {
+    margin-left: auto;
+    cursor: pointer;
   }
 }
 

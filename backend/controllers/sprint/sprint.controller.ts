@@ -54,9 +54,7 @@ export default class SprintController {
     let updated
 
     try {
-      updated = await SprintModel.findByIdAndUpdate({ _id: sprintId }, {
-        active: true
-      })
+      updated = await SprintModel.findByIdAndUpdate({ _id: sprintId }, { active: true }, { returnOriginal: false })
     } catch (error) {
       return res.status(400).send({
         status: 'error',
@@ -65,6 +63,7 @@ export default class SprintController {
     }
 
     if (updated) {
+      console.log(updated)
       return res.status(201).send({
         status: 'success',
         message: `${updated.name} has been started`,
@@ -79,9 +78,7 @@ export default class SprintController {
     let updated
 
     try {
-      updated = await SprintModel.findByIdAndUpdate({ _id: sprintId }, {
-        active: false
-      })
+      updated = await SprintModel.findByIdAndUpdate({ _id: sprintId }, { active: true }, { returnOriginal: false })
     } catch (error) {
       return res.status(400).send({
         status: 'error',
@@ -92,7 +89,7 @@ export default class SprintController {
     if (updated) {
       return res.status(201).send({
         status: 'success',
-        message: `${updated.name} has been ended`,
+        message: `${updated.name} has been completed`,
         data: updated
       })
     }

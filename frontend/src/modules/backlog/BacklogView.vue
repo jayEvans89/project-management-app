@@ -13,7 +13,13 @@
 
     <div class="backlog-section">
       <h3>Sprints</h3>
-      <sprint-list :sprints="inactiveSprints" @add-new-sprint="addNewSprint"></sprint-list>
+      <sprint-list
+        :sprints="inactiveSprints"
+        :active-sprint="activeSprint !== undefined"
+        @add-new-sprint="addNewSprint"
+        @sprint-started="updateSprint"
+        @sprint-ended="updateSprint"
+      ></sprint-list>
     </div>
   </div>
 
@@ -45,15 +51,13 @@ export default defineComponent({
     const getSprints = async () => {
       gettingSprints.value = true
       const res = await sprintService.getSprints()
-      console.log('Got sprints: ', res.data)
       sprints.value = res.data
-      console.log('combined arrays: ', sprints)
       gettingSprints.value = false
     }
 
     const activeSprint = computed(() => {
       return sprints.value.find((sprint) => {
-        return sprint.active
+        return sprint.active && !sprint.complete
       })
     })
 
@@ -65,6 +69,14 @@ export default defineComponent({
       sprints.value.push(sprint)
     }
 
+    const updateSprint = (sprint: Sprint) => {
+      const index = sprints.value.map(s => {
+        return s._id
+      }).indexOf(sprint._id)
+
+      sprints.value[index] = sprint
+    }
+
     onMounted(() => {
       getSprints()
     })
@@ -74,7 +86,8 @@ export default defineComponent({
       inactiveSprints,
       sprints,
       gettingSprints,
-      addNewSprint
+      addNewSprint,
+      updateSprint
     }
   }
 })

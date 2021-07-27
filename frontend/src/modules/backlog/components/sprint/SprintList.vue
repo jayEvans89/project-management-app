@@ -1,9 +1,16 @@
 
 <template>
-    <sprint v-for="sprint in sprints" :key="sprint._id" :sprint="sprint"></sprint>
-    <p v-show="noSprintsMessage">You have not created any sprints</p>
-    <create-sprint type="sprint"></create-sprint>
-    <create-sprint-modal @add-new-sprint="addNewSprint"></create-sprint-modal>
+  <sprint
+    v-for="sprint in sprints"
+    :key="sprint._id"
+    :sprint="sprint"
+    :active-sprint="activeSprint"
+    @sprint-started="sprintStarted"
+    @sprint-ended="sprintEnded"
+  ></sprint>
+  <p v-show="noSprintsMessage">You have not created any sprints</p>
+  <create-sprint type="sprint"></create-sprint>
+  <create-sprint-modal @add-new-sprint="addNewSprint"></create-sprint-modal>
 </template>
 
 <script lang="ts">
@@ -24,9 +31,12 @@ export default defineComponent({
     sprints: {
       type: Array as PropType<Array<SprintType>>,
       required: true
+    },
+    activeSprint: {
+      type: Boolean
     }
   },
-  emits: ['add-new-sprint'],
+  emits: ['add-new-sprint', 'sprint-started', 'sprint-ended'],
   setup(props, { emit }) {
     const noSprintsMessage = computed(() => {
       return props.sprints.length === 0
@@ -36,9 +46,19 @@ export default defineComponent({
       emit('add-new-sprint', sprint)
     }
 
+    const sprintStarted = (sprint: SprintType) => {
+      emit('sprint-started', sprint)
+    }
+
+    const sprintEnded = (sprint: SprintType) => {
+      emit('sprint-ended', sprint)
+    }
+
     return {
       noSprintsMessage,
-      addNewSprint
+      addNewSprint,
+      sprintStarted,
+      sprintEnded
     }
   }
 })

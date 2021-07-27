@@ -11,6 +11,16 @@ class SprintService {
     const res = await http.post('sprint/create', newSprint)
     return res.data
   }
+
+  async startSprint(id: number): Promise<SprintCreationResponse> {
+    const res = await http.post(`sprint/start/${id}`)
+    return res.data
+  }
+
+  async endSprint(id: number): Promise<SprintCreationResponse> {
+    const res = await http.post(`sprint/end/${id}`)
+    return res.data
+  }
 }
 
 export default new SprintService()
