@@ -4,12 +4,37 @@ import { Sprint } from '@/types/sprint/sprint'
 
 export default class SprintController {
   async get(req: Request, res: Response) {
+    if (req.params.id === '') {
+      const sprints = await SprintModel.find()
+      const filteredSprints = sprints.filter(s => !s.complete)
+
+      return res.status(201).send({
+        status: 'success',
+        message: `Found ${filteredSprints.length} sprint(s)`,
+        data: filteredSprints
+      })
+    } else {
+      const sprintId = req.params.id
+      const sprint = await SprintModel.findById(sprintId)
+
+      return res.status(201).send({
+        status: 'success',
+        message: `Found sprint ${sprintId}`,
+        data: sprint
+      })
+
+    }
+  }
+
+  async getActiveSprint(req: Request, res: Response) {
     const sprints = await SprintModel.find()
+
+    const filteredSprints = sprints.filter(s => !s.complete && s.active)
 
     return res.status(201).send({
       status: 'success',
-      message: `Found ${sprints.length} sprint(s)`,
-      data: sprints
+      message: `Found the current active sprint`,
+      data: filteredSprints
     })
   }
 
@@ -78,7 +103,7 @@ export default class SprintController {
     let updated
 
     try {
-      updated = await SprintModel.findByIdAndUpdate({ _id: sprintId }, { active: true }, { returnOriginal: false })
+      updated = await SprintModel.findByIdAndUpdate({ _id: sprintId }, { complete: true }, { returnOriginal: false })
     } catch (error) {
       return res.status(400).send({
         status: 'error',

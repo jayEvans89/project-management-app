@@ -9,6 +9,10 @@ export interface SprintCreationResponse extends BaseResponse {
   data: Sprint
 }
 
+export interface SingleSprintResponse extends BaseResponse {
+  data: Sprint
+}
+
 export interface NewSprint {
   /** The name of the sprint */
   name: string;

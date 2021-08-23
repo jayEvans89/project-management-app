@@ -5,10 +5,20 @@ export const sprint = express.Router()
 
 const sprintController = new SprintController()
 
-// Get active sprint
+// Get all sprints
 sprint.get('/get', (req, res) => {
   console.log('get sprints')
   sprintController.get(req, res)
+})
+
+// Get specific sprint
+sprint.get('/get/:id', (req, res) => {
+  sprintController.get(req, res)
+})
+
+// Get active sprint
+sprint.get('/getActiveSprint', (req, res) => {
+  sprintController.getActiveSprint(req, res)
 })
 
 // Create Sprint

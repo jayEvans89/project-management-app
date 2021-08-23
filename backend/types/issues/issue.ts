@@ -1,11 +1,12 @@
 import { Document } from 'mongoose'
+import { Assignee } from '../assignee/assignee';
 
 export interface IssueBase extends Document {
   /** Issue title */
   title: string;
 
   /** Issue id/ticket number */
-  id: string;
+  _id: string;
 
   /** Issue description */
   description: string;
@@ -17,14 +18,20 @@ export interface IssueBase extends Document {
   type: string;
 
   /** Labels assigned to the issue */
-  labels: Array<string>;
+  labels: string[];
 
   /** The id of the sprint the issue belongs to */
   sprintId: string;
 
   /** List of subtasks */
-  subtasks: Array<IssueBase>;
+  subtasks: IssueBase[];
   
   /** Story point estimate */
-  storyPoint: number;
+  effort: number;
+
+  /** List of assignees */
+  assignees: Assignee[]
+
+  /** The status of the issue */
+  status: string;
 }
