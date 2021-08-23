@@ -1,14 +1,18 @@
 
 <template>
   <modal modal-id="createSprintModal">
-    <template v-slot:title>
-      Create New Sprint
-    </template>
+    <template v-slot:title>Create New Sprint</template>
     <template v-slot="scope">
       <form class="form">
         <div class="form__row">
           <div class="form__col">
-            <text-input v-model="newSprint.name" name="sprintName" label="Sprint Name" placeholder="Sprint Name"></text-input>
+            <text-input
+              v-model="newSprint.name"
+              name="sprintName"
+              label="Sprint Name"
+              placeholder="Sprint Name"
+              :validate="validateInputs"
+            ></text-input>
           </div>
           <div class="form__col"></div>
         </div>
@@ -21,7 +25,12 @@
           </div>
         </div>
 
-        <text-area-input v-model="newSprint.description" name="description" label="Description" placeholder="A description or goal the sprint should achieve"></text-area-input>
+        <text-area-input
+          v-model="newSprint.description"
+          name="description"
+          label="Description"
+          placeholder="A description or goal the sprint should achieve"
+        ></text-area-input>
       </form>
       <div class="btn-container">
         <button class="btn btn--secondary" @click="scope.close">Cancel</button>
@@ -32,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive } from '@vue/runtime-core'
+import { defineComponent, onMounted, reactive, ref } from '@vue/runtime-core'
 import Modal from '@/shared/Modal.vue'
 import TextInput from '@/shared/form/components/TextInput/TextInput.vue'
 import TextAreaInput from '@/shared/form/components/TextArea/TextArea.vue'
@@ -59,7 +68,11 @@ export default defineComponent({
       endDate: ''
     })
 
+    const validateInputs = ref(false)
+
     const createSprint = async (close: Function) => {
+      validateInputs.value = true
+      // TODO: Need to check if the inputs are valid before submitting
       try {
         const res = await sprintService.createSprint(newSprint)
         if (res.status === 'success') {
@@ -76,7 +89,8 @@ export default defineComponent({
 
     return {
       newSprint,
-      createSprint
+      createSprint,
+      validateInputs
     }
   }
 })

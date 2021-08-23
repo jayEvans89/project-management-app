@@ -3,7 +3,7 @@ import useValidators from './validators';
 
 const errors: { [key: string]: string } = reactive({})
 
-const { isEmpty } = useValidators()
+const { isEmpty, minLength } = useValidators()
 
 export default function formValidation() {
   const validateTextInput = (name: string, value: string) => {

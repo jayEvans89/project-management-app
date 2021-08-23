@@ -25,10 +25,10 @@
           class="active-sprint__total-issues"
           v-show="totalPoints === 0"
         >Story Points: {{ totalPoints }}</p>
+        <!-- TODO: Start/Complete button -->
         <p class="active-sprint__start" v-show="!sprint.active && !activeSprint" @click="startSprint">Start</p>
         <p class="active-sprint__start" v-show="sprint.active" @click="endSprint">End</p>
       </div>
-      <!-- TODO: Start/Complete button -->
       <!-- TODO: Add menu for delete and edit -->
     </div>
     <div class="active-sprint__issues">
@@ -65,7 +65,7 @@ export default defineComponent({
     'sprint-ended'
   ],
   setup(props, { emit }) {
-    const sprintContainer = ref<null | HTMLElement>(null) // eslint-disable-line
+    const sprintContainer = ref<null | HTMLElement>(null)
     const containerHeight = ref('height: 55px;')
     const showIssues = ref(false)
 
@@ -80,7 +80,7 @@ export default defineComponent({
       let count = 0
       if (props.sprint.issues) {
         for (const task of props.sprint.issues) {
-          count + task.storyPoint
+          count + task.effort
         }
       }
       return count

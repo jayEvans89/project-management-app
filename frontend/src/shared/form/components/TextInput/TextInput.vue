@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/runtime-core'
+import { defineComponent, ref, watch } from '@vue/runtime-core'
 import formValidation from '@/shared/form/methods/formValidation'
 
 export default defineComponent({
@@ -40,12 +40,22 @@ export default defineComponent({
     required: {
       type: Boolean,
       default: true
+    },
+    validate: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props, { emit }) {
     const input = ref(props.modelValue)
 
     const { validateTextInput, errors } = formValidation()
+
+    watch(() => props.validate, (newVal: boolean) => {
+      if (newVal) {
+        validateInput(true)
+      }
+    })
 
     const validateInput = (emitValue = false) => {
       if (props.required) {

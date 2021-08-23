@@ -8,7 +8,7 @@
     <div class="backlog-section">
       <h3>Active Sprint</h3>
       <p v-show="activeSprint === undefined">No sprints currently running</p>
-      <sprint-component v-if="activeSprint !== undefined" :sprint="activeSprint"></sprint-component>
+      <sprint-component v-if="activeSprint !== undefined" :sprint="activeSprint" @sprint-ended="updateSprint"></sprint-component>
     </div>
 
     <div class="backlog-section">

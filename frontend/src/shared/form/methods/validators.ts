@@ -8,8 +8,14 @@ export default function useValidators() {
     return value.length < minLength ? `The ${name} field needs to be a minimum length of ${minLength} characters` : ''
   }
 
+  const isValidEmail = (name: string, value: string) => {
+    const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    return !regex.test(value) ? `Please enter a valid email address` : ''
+  }
+
   return {
     isEmpty,
-    minLength
+    minLength,
+    isValidEmail
   }
 }
