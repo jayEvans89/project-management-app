@@ -9,7 +9,8 @@ const issueSchema: Schema = new Schema ({
     required: true
   },
   description: {
-    type: String
+    type: String,
+    required: false
   },
   issues: {
     type: Array,
@@ -17,7 +18,8 @@ const issueSchema: Schema = new Schema ({
   },
   status: {
     type: String,
-    default: false
+    required: false,
+    default: 'backlog'
   },
   order: {
     type: Number,

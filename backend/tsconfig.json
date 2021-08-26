@@ -16,8 +16,7 @@
       ]
     },
     "types": [
-      "node",
-      "jest"
+      "node"
     ],
   },
   "include": ["**/*.ts"]

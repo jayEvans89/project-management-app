@@ -4,7 +4,7 @@ import Mongoose from 'mongoose';
 let database: Mongoose.Connection;
 
 export const databaseConnect = () => {
-  const uri = 'mongodb://localhost:27017/timeTrackingApp';
+  const uri = 'mongodb://localhost:27017/projectManagementApp';
 
   if (database) {
     return;

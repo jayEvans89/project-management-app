@@ -17,6 +17,13 @@ export default class SprintController {
       const sprintId = req.params.id
       const sprint = await SprintModel.findById(sprintId)
 
+      if (sprint === null) {
+        return res.status(201).send({
+          status: 'success',
+          message: `A sprint with id: ${sprintId} does not exist. Please try a different id`
+        })
+      }
+
       return res.status(201).send({
         status: 'success',
         message: `Found sprint ${sprintId}`,
@@ -45,6 +52,7 @@ export default class SprintController {
    * @returns Success response with the newly created sprint. Or an error response
    */
   async createSprint(req: Request, res: Response) {
+    console.log(req)
     const newSprint = req.body as Sprint
 
     const sprintExists = await SprintModel.findOne({ name: newSprint.name })

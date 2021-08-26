@@ -8,17 +8,17 @@ const issueController = new IssueController()
 // Get all Issues
 issue.get('/get', (req, res) => {
   console.log('get issues')
-  // issueController.get(req, res)
+  issueController.get(req, res)
 })
 
 // Get specific issue
 issue.get('/get/:id', (req, res) => {
-  // issueController.get(req, res)
+  issueController.get(req, res)
 })
 
 // Create issue
 issue.post('/create', (req, res) => {
-  // issueController.createIssue(req, res)
+  issueController.createIssue(req, res)
 })
 
 // Updates an issue

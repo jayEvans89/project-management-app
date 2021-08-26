@@ -5,13 +5,10 @@
     "lint": "eslint --plugin eslint-plugin-vue frontend/**/*.vue frontend/**/*.ts"
   },
   "dependencies": {
-    "babel-jest": "^27.0.6",
     "eslint": "^7.28.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0",
-    "jest": "^27.0.6",
-    "ts-jest": "^27.0.3"
+    "eslint-plugin-promise": "^5.1.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.11",
@@ -50,38 +47,5 @@
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "no-use-before-define": "off"
     }
-  },
-  "babel": {
-    "presets": [
-      "@vue/cli-plugin-babel/preset"
-    ],
-    "ignore": [
-      "assets/Javascript/**/*.js"
-    ]
-  },
-  "jest": {
-    "verbose": true,
-    "preset": "@vue/cli-plugin-unit-jest/presets/typescript-and-babel",
-    "globals": {
-      "ts-jest": {
-        "babelConfig": "babel.config.js"
-      }
-    },
-    "moduleNameMapper": {
-      "^@/(.*)": "<rootDir>/$1"
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "js",
-      "json"
-    ],
-    "transform": {
-      "^.+\\.ts?$": "ts-jest"
-    },
-    "testMatch": [
-      "<rootDir>/**/*.spec.ts"
-    ],
-    "collectCoverage": true,
-    "coverageDirectory": "<rootDir>/tests/coverage"
   }
 }
