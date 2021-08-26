@@ -4,7 +4,7 @@ import { Sprint } from '@/types/sprint/sprint'
 
 export default class SprintController {
   async get(req: Request, res: Response) {
-    if (req.params.id === '') {
+    if (!req.params.id) {
       const sprints = await SprintModel.find()
       const filteredSprints = sprints.filter(s => !s.complete)
 

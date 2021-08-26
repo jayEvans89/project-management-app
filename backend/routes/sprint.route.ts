@@ -7,7 +7,6 @@ const sprintController = new SprintController()
 
 // Get all sprints
 sprint.get('/get', (req, res) => {
-  console.log('get sprints')
   sprintController.get(req, res)
 })
 
