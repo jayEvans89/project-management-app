@@ -51,7 +51,9 @@ export default class IssueController {
   // Create issue
   async createIssue(req: Request, res: Response) {
     const newIssue = req.body as IssueBase
-    console.log(newIssue.title, req.body)
+
+    newIssue.issueId = await this.createIssueNumber()
+
     let issue
     try {
       issue = await IssueModel.create(newIssue)
@@ -67,6 +69,26 @@ export default class IssueController {
       message: `${newIssue.title} was successfully created`,
       data: issue
     })
+  }
+
+  /**
+   * TODO: Refactor to use the projects name once the project endpoints are in
+   * Creates a new ticket number based on the total amount of 
+   * created tickets
+   * @returns A new issue/ticket number
+   */
+  async createIssueNumber() {
+    const totalIssues = await (await IssueModel.find()).length + 1
+    const projectName = 'Test'
+
+    let issueId
+    if (totalIssues < 10) {
+      issueId = `0${totalIssues}`
+    } else {
+      issueId = `${totalIssues}`
+    }
+
+    return `${projectName.toUpperCase()}-${issueId}`
   }
 
   // Updates an issue

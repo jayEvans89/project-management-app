@@ -5,8 +5,11 @@ export interface IssueBase extends Document {
   /** Issue title */
   title: string;
 
-  /** Issue id/ticket number */
+  /** Mongodb Id */
   _id: string;
+
+  /** Issuer/Ticket Id */
+  issueId: string;
 
   /** Issue description */
   description: string;

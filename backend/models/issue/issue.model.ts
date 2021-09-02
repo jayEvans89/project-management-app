@@ -48,6 +48,10 @@ const issueSchema: Schema = new Schema ({
   assignees: {
     type: Array,
     required: false
+  },
+  issueId: {
+    type: String,
+    Required: true
   }
 },
 {
